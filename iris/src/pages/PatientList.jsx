@@ -1,5 +1,7 @@
-import {useNavigate} from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+import { LogOut } from 'lucide-react'
 import { pacientes } from '../services/pacientes'
+import { logout } from '../services/auth'
 
 const STATUS = {
   normal: {
@@ -19,14 +21,30 @@ const STATUS = {
 export default function PatientList() {
   const navigate = useNavigate()
 
+  function sair() {
+    logout()
+    navigate('/login')
+  }
+
   return (
     <main className="mx-auto max-w-md px-5 pb-24 pt-6">
-      <p className="text-sm font-semibold uppercase tracking-wider text-[var(--color-ink-soft)]">
-        Acompanhamento
-      </p>
-      <h1 className="font-[var(--font-display)] text-3xl font-semibold text-[var(--color-navy)]">
-        Meus pacientes
-      </h1>
+      <div className="flex items-start justify-between">
+        <div>
+          <p className="text-sm font-semibold uppercase tracking-wider text-[var(--color-ink-soft)]">
+            Acompanhamento
+          </p>
+          <h1 className="font-[var(--font-display)] text-3xl font-semibold text-[var(--color-navy)]">
+            Meus pacientes
+          </h1>
+        </div>
+        <button
+          onClick={sair}
+          className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[var(--color-surface)] shadow-sm"
+          aria-label="Sair"
+        >
+          <LogOut size={20} className="text-[var(--color-ink-soft)]" />
+        </button>
+      </div>
 
       <div className="mt-6 space-y-3">
         {pacientes.map((p) => {
